@@ -1,9 +1,13 @@
 import { useState } from 'react'
 
-export default function AddHabitForm({ onAdd }) {
+interface Props {
+  onAdd: (name: string) => void
+}
+
+export default function AddHabitForm({ onAdd }: Props) {
   const [value, setValue] = useState('')
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     const trimmed = value.trim()
     if (!trimmed) return

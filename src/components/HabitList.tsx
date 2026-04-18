@@ -1,6 +1,13 @@
-import HabitCard from './HabitCard.jsx'
+import HabitCard from './HabitCard'
+import type { Habit } from '../types'
 
-export default function HabitList({ habits, onToggle, onDelete }) {
+interface Props {
+  habits: Habit[]
+  onToggle: (id: string) => void
+  onDelete: (id: string) => void
+}
+
+export default function HabitList({ habits, onToggle, onDelete }: Props) {
   if (habits.length === 0) {
     return (
       <p className="text-center text-slate-500 py-12">

@@ -1,6 +1,13 @@
-import { calculateStreak, getTodayStr } from '../utils/streaks.js'
+import { calculateStreak, getTodayStr } from '../utils/streaks'
+import type { Habit } from '../types'
 
-export default function HabitCard({ habit, onToggle, onDelete }) {
+interface Props {
+  habit: Habit
+  onToggle: (id: string) => void
+  onDelete: (id: string) => void
+}
+
+export default function HabitCard({ habit, onToggle, onDelete }: Props) {
   const today = getTodayStr()
   const completedToday = habit.completions.includes(today)
   const streak = calculateStreak(habit.completions)

@@ -1,11 +1,23 @@
-import { calculateStreak, getTodayStr } from '../utils/streaks.js'
+import { calculateStreak, getTodayStr } from '../utils/streaks'
+import type { Habit } from '../types'
 
-export default function Dashboard({ habits }) {
+interface Props {
+  habits: Habit[]
+}
+
+interface StatCardProps {
+  label: string
+  value: string | number
+  sub?: string
+  highlight?: boolean
+}
+
+export default function Dashboard({ habits }: Props) {
   const today = getTodayStr()
   const totalHabits = habits.length
   const completedToday = habits.filter(h => h.completions.includes(today)).length
 
-  const streakLeader = habits.reduce((best, h) => {
+  const streakLeader = habits.reduce<{ name: string; streak: number } | null>((best, h) => {
     const s = calculateStreak(h.completions)
     return s > (best?.streak ?? -1) ? { name: h.name, streak: s } : best
   }, null)
@@ -27,7 +39,7 @@ export default function Dashboard({ habits }) {
   )
 }
 
-function StatCard({ label, value, sub, highlight }) {
+function StatCard({ label, value, sub, highlight }: StatCardProps) {
   return (
     <div className={`rounded-xl border p-4 text-center ${highlight ? 'bg-emerald-900/30 border-emerald-700' : 'bg-slate-800 border-slate-700'}`}>
       <p className="text-xs text-slate-400 uppercase tracking-wide mb-1">{label}</p>

@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
-import { loadHabits, saveHabits } from '../utils/storage.js'
-import { getTodayStr } from '../utils/streaks.js'
-import Dashboard from './Dashboard.jsx'
-import AddHabitForm from './AddHabitForm.jsx'
-import HabitList from './HabitList.jsx'
+import { loadHabits, saveHabits } from '../utils/storage'
+import { getTodayStr } from '../utils/streaks'
+import Dashboard from './Dashboard'
+import AddHabitForm from './AddHabitForm'
+import HabitList from './HabitList'
+import type { Habit } from '../types'
 
 export default function App() {
-  const [habits, setHabits] = useState([])
+  const [habits, setHabits] = useState<Habit[]>([])
 
   useEffect(() => {
     setHabits(loadHabits())
@@ -16,7 +17,7 @@ export default function App() {
     saveHabits(habits)
   }, [habits])
 
-  function onAddHabit(name) {
+  function onAddHabit(name: string) {
     setHabits(prev => [
       ...prev,
       {
@@ -28,7 +29,7 @@ export default function App() {
     ])
   }
 
-  function onToggleToday(id) {
+  function onToggleToday(id: string) {
     const today = getTodayStr()
     setHabits(prev =>
       prev.map(h => {
@@ -44,7 +45,7 @@ export default function App() {
     )
   }
 
-  function onDeleteHabit(id) {
+  function onDeleteHabit(id: string) {
     setHabits(prev => prev.filter(h => h.id !== id))
   }
 

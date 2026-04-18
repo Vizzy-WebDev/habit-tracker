@@ -13,6 +13,7 @@ A minimal habit tracking app built with React, Vite, and Tailwind CSS.
 ## Tech Stack
 
 - React 18
+- TypeScript
 - Vite
 - Tailwind CSS
 
